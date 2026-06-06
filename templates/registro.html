@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Registro — La Dulce Tentación{% endblock %}
+{% block content %}
+<section class="login-wrap">
+  <form method="post" class="login-card">
+    <h1>✨ Crear <em>cuenta</em></h1>
+    <p>Regístrate para comprar y guardar tus datos como cliente.</p>
+    <label>Nombre completo<input name="nombre" required placeholder="Tu nombre completo"></label>
+    <label>Correo electrónico<input type="email" name="correo" required placeholder="correo@ejemplo.com"></label>
+    <label>Teléfono<input name="telefono" placeholder="999 999 999"></label>
+    <label>Contraseña<input type="password" name="password" required placeholder="Crea una contraseña"></label>
+    <label>Confirmar contraseña<input type="password" name="confirmar" required placeholder="Repite tu contraseña"></label>
+    <button class="btn-primary" type="submit">Registrarme</button>
+    <p class="small-note">¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesión aquí</a></p>
+    <p class="small-note"><a href="{{ url_for('home') }}">Volver al inicio</a></p>
+  </form>
+</section>
+{% endblock %}

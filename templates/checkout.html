@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Pago — La Dulce Tentación{% endblock %}
+{% block content %}
+<section class="page-section checkout-grid">
+  <div>
+    <div class="section-header left"><h2>Finalizar <em>compra</em></h2><p>Pago de demostración para tu trabajo final.</p></div>
+    <form method="post" class="panel-form">
+      <label>Nombre completo<input name="nombre" required placeholder="Ej. Ana Torres"></label>
+      <label>Correo electrónico<input type="email" name="correo" required placeholder="correo@ejemplo.com"></label>
+      <label>Teléfono<input name="telefono" required placeholder="999 999 999"></label>
+      <label>Dirección<textarea name="direccion" required placeholder="Dirección de entrega"></textarea></label>
+      <label>Método de pago
+        <select name="metodo_pago" required>
+          <option>Tarjeta demo</option>
+          <option>Yape / Plin demo</option>
+          <option>Pago contra entrega</option>
+        </select>
+      </label>
+      <button class="btn-primary" type="submit">Pagar pedido</button>
+      <p class="small-note">Este pago es simulado, no cobra dinero real.</p>
+    </form>
+  </div>
+  <aside class="order-summary">
+    <h3>Resumen</h3>
+    {% for item in items %}<p>{{ item.cantidad }} × {{ item.producto.nombre }} <span>S/ {{ '%.2f'|format(item.subtotal) }}</span></p>{% endfor %}
+    <hr><strong>Total: S/ {{ '%.2f'|format(total) }}</strong>
+  </aside>
+</section>
+{% endblock %}

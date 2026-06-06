@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Cliente Admin{% endblock %}
+{% block content %}
+<section class="page-section narrow"><form method="post" class="panel-form"><h1>{{ 'Editar' if cliente else 'Nuevo' }} cliente</h1><label>Nombre<input name="nombre" required value="{{ cliente.nombre if cliente else '' }}"></label><label>Correo<input type="email" name="correo" required value="{{ cliente.correo if cliente else '' }}"></label><label>Teléfono<input name="telefono" required value="{{ cliente.telefono if cliente else '' }}"></label><button class="btn-primary" type="submit">Guardar</button><a href="{{ url_for('admin_dashboard') }}">Cancelar</a></form></section>
+{% endblock %}

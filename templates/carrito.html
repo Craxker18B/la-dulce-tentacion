@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Carrito — La Dulce Tentación{% endblock %}
+{% block content %}
+<section class="page-section cart-section">
+  <div class="section-header"><h2>Tu <em>carrito</em></h2><p>Revisa cantidades antes de pagar.</p></div>
+  {% if items %}
+  <form method="post" action="{{ url_for('actualizar_carrito') }}" class="cart-table-wrap">
+    <table class="cart-table">
+      <thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th>Acción</th></tr></thead>
+      <tbody>
+      {% for item in items %}
+        <tr>
+          <td class="cart-product"><img src="{{ url_for('static', filename='images/' ~ item.producto.imagen) }}" alt="{{ item.producto.nombre }}"><span>{{ item.producto.nombre }}</span></td>
+          <td>S/ {{ '%.2f'|format(item.producto.precio) }}</td>
+          <td><input class="qty-input" name="cantidad_{{ item.producto.id }}" type="number" min="1" value="{{ item.cantidad }}" data-price="{{ item.producto.precio }}"></td>
+          <td class="line-subtotal">S/ {{ '%.2f'|format(item.subtotal) }}</td>
+          <td>
+            <button class="link-button danger" form="delete-{{ item.producto.id }}" type="submit">Eliminar</button>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="cart-summary">
+      <p>Total: <strong id="cart-total">S/ {{ '%.2f'|format(total) }}</strong></p>
+      <button class="btn-secondary" type="submit">Actualizar carrito</button>
+      <a class="btn-primary" href="{{ url_for('checkout') }}">Proceder al pago</a>
+    </div>
+  </form>
+  {% for item in items %}
+  <form id="delete-{{ item.producto.id }}" method="post" action="{{ url_for('eliminar_carrito', producto_id=item.producto.id) }}"></form>
+  {% endfor %}
+  {% else %}
+    <div class="empty-state">🧁 Tu carrito está vacío. <a href="{{ url_for('productos_publicos') }}">Ver productos</a></div>
+  {% endif %}
+</section>
+{% endblock %}

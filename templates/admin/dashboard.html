@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Admin — La Dulce Tentación{% endblock %}
+{% block content %}
+<section class="page-section admin-section">
+  <div class="section-header"><h2>Panel <em>Administrador</em></h2><p>CRUD de productos, servicios y clientes.</p></div>
+  <div class="admin-tabs">
+    <a href="#productos-admin">Productos</a><a href="#servicios-admin">Servicios</a><a href="#clientes-admin">Clientes</a><a href="#pedidos-admin">Pedidos</a>
+  </div>
+
+  <section id="productos-admin" class="admin-panel">
+    <div class="panel-title"><h3>Productos</h3><a class="btn-mini" href="{{ url_for('producto_nuevo') }}">+ Nuevo producto</a></div>
+    <div class="table-responsive"><table><thead><tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Activo</th><th>Acciones</th></tr></thead><tbody>
+    {% for p in productos %}<tr><td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>S/ {{ '%.2f'|format(p.precio) }}</td><td>{{ 'Sí' if p.activo else 'No' }}</td><td><a href="{{ url_for('producto_editar', id=p.id) }}">Editar</a><form method="post" action="{{ url_for('producto_eliminar', id=p.id) }}" class="inline-form"><button type="submit">Eliminar</button></form></td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>
+
+  <section id="servicios-admin" class="admin-panel">
+    <div class="panel-title"><h3>Servicios</h3><a class="btn-mini" href="{{ url_for('servicio_nuevo') }}">+ Nuevo servicio</a></div>
+    <div class="table-responsive"><table><thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr></thead><tbody>
+    {% for s in servicios %}<tr><td>{{ s.id }}</td><td>{{ s.nombre }}</td><td>{{ s.descripcion }}</td><td><a href="{{ url_for('servicio_editar', id=s.id) }}">Editar</a><form method="post" action="{{ url_for('servicio_eliminar', id=s.id) }}" class="inline-form"><button type="submit">Eliminar</button></form></td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>
+
+  <section id="clientes-admin" class="admin-panel">
+    <div class="panel-title"><h3>Clientes</h3><a class="btn-mini" href="{{ url_for('cliente_nuevo') }}">+ Nuevo cliente</a></div>
+    <div class="table-responsive"><table><thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Acciones</th></tr></thead><tbody>
+    {% for c in clientes %}<tr><td>{{ c.id }}</td><td>{{ c.nombre }}</td><td>{{ c.correo }}</td><td>{{ c.telefono }}</td><td><a href="{{ url_for('cliente_editar', id=c.id) }}">Editar</a><form method="post" action="{{ url_for('cliente_eliminar', id=c.id) }}" class="inline-form"><button type="submit">Eliminar</button></form></td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>
+
+  <section id="pedidos-admin" class="admin-panel">
+    <div class="panel-title"><h3>Últimos pedidos</h3></div>
+    <div class="table-responsive"><table><thead><tr><th>ID</th><th>Cliente</th><th>Correo</th><th>Total</th><th>Pago</th><th>Fecha</th></tr></thead><tbody>
+    {% for p in pedidos %}<tr><td>{{ p.id }}</td><td>{{ p.cliente }}</td><td>{{ p.correo }}</td><td>S/ {{ '%.2f'|format(p.total) }}</td><td>{{ p.metodo_pago }}</td><td>{{ p.fecha }}</td></tr>{% else %}<tr><td colspan="6">Aún no hay pedidos.</td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>
+</section>
+{% endblock %}

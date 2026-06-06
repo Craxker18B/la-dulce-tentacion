@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Servicio Admin{% endblock %}
+{% block content %}
+<section class="page-section narrow"><form method="post" class="panel-form"><h1>{{ 'Editar' if servicio else 'Nuevo' }} servicio</h1><label>Nombre<input name="nombre" required value="{{ servicio.nombre if servicio else '' }}"></label><label>Descripción<textarea name="descripcion" required>{{ servicio.descripcion if servicio else '' }}</textarea></label><button class="btn-primary" type="submit">Guardar</button><a href="{{ url_for('admin_dashboard') }}">Cancelar</a></form></section>
+{% endblock %}

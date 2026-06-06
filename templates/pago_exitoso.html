@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Pago exitoso — La Dulce Tentación{% endblock %}
+{% block content %}
+<section class="page-section success-box">
+  <h1>✅ Pago exitoso</h1>
+  <p>Gracias, {{ nombre }}. Tu pedido fue registrado correctamente.</p>
+  <p>Método: <strong>{{ metodo }}</strong> · Total: <strong>S/ {{ '%.2f'|format(total) }}</strong></p>
+  <a class="btn-primary" href="{{ url_for('home') }}">Volver al inicio</a>
+</section>
+{% endblock %}

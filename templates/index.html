@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Inicio — La Dulce Tentación{% endblock %}
+{% block content %}
+<header id="inicio" class="hero">
+  <div class="hero-content">
+    <p class="hero-tag">Pastelería Artesanal · Lima, Perú</p>
+    <h1>El arte del<br><em>dulce perfecto</em></h1>
+    <p class="hero-sub">Elaboramos cada pieza con ingredientes frescos, amor y años de tradición pastelera.</p>
+    <div class="hero-actions">
+      <a href="{{ url_for('productos_publicos') }}" class="btn-primary">Ver productos</a>
+      <a href="#servicios" class="btn-secondary">Servicios</a>
+    </div>
+  </div>
+  <div class="hero-card" aria-label="Imagen decorativa de pastelería">
+    <img src="{{ url_for('static', filename='images/torta-chocolate.svg') }}" alt="Torta de chocolate artesanal con crema y fresas">
+  </div>
+  <div class="hero-deco"></div>
+</header>
+
+<section id="menu" class="menu-section">
+  <div class="section-header">
+    <h2>Nuestras <em>especialidades</em></h2>
+    <p>Cada bocado es una experiencia que no olvidarás</p>
+  </div>
+  <div class="cards-grid product-grid">
+    {% for p in productos[:6] %}
+    <article class="card product-card">
+      <img class="product-img" src="{{ url_for('static', filename='images/' ~ p.imagen) }}" alt="{{ p.nombre }}">
+      <h3>{{ p.nombre }}</h3>
+      <p>{{ p.descripcion }}</p>
+      <span class="price">S/ {{ '%.2f'|format(p.precio) }}</span>
+      <form method="post" action="{{ url_for('agregar_carrito', producto_id=p.id) }}" class="add-form">
+        <label class="sr-only" for="cantidad-home-{{ p.id }}">Cantidad</label>
+        <input id="cantidad-home-{{ p.id }}" name="cantidad" type="number" min="1" value="1">
+        <button class="btn-mini" type="submit">Agregar al carrito</button>
+      </form>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="servicios" class="about-section">
+  <div class="about-text">
+    <h2>Servicios para tus <em>momentos especiales</em></h2>
+    <p>Mantenemos tu diseño original elegante y agregamos administración, carrito y pago de demostración sin romper la página.</p>
+    <p>También puedes gestionar productos, servicios y clientes desde el panel administrador.</p>
+  </div>
+  <div class="service-list">
+    {% for s in servicios %}
+    <article class="service-card">
+      <h3>{{ s.nombre }}</h3>
+      <p>{{ s.descripcion }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="contacto" class="contact-section">
+  <h2>Haz tu <em>pedido</em></h2>
+  <p>Escríbenos o compra directamente desde el carrito.</p>
+  <div class="contact-info">
+    <a href="https://wa.me/51999999999" class="contact-btn whatsapp">📱 WhatsApp</a>
+    <a href="mailto:hola@ladulcetentacion.pe" class="contact-btn email">✉️ Email</a>
+    <a href="{{ url_for('productos_publicos') }}" class="contact-btn instagram">🛒 Comprar</a>
+  </div>
+  <p class="address">📍 Miraflores, Lima · Lunes a Sábado 9am – 8pm</p>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Productos — La Dulce Tentación{% endblock %}
+{% block content %}
+<section class="page-section">
+  <div class="section-header">
+    <h2>Nuestros <em>productos</em></h2>
+    <p>Selecciona tus postres favoritos y agrégalos al carrito.</p>
+  </div>
+  <div class="cards-grid product-grid">
+    {% for p in productos %}
+    <article class="card product-card">
+      <img class="product-img" src="{{ url_for('static', filename='images/' ~ p.imagen) }}" alt="{{ p.nombre }}">
+      <h3>{{ p.nombre }}</h3>
+      <p>{{ p.descripcion }}</p>
+      <span class="price">S/ {{ '%.2f'|format(p.precio) }}</span>
+      <form method="post" action="{{ url_for('agregar_carrito', producto_id=p.id) }}" class="add-form">
+        <label for="cantidad-{{ p.id }}">Cantidad</label>
+        <input id="cantidad-{{ p.id }}" name="cantidad" type="number" min="1" value="1">
+        <button class="btn-mini" type="submit">Agregar al carrito</button>
+      </form>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

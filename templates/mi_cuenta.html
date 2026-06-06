@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Mi cuenta — La Dulce Tentación{% endblock %}
+{% block content %}
+<section class="page-section success-box">
+  <h1>Mi cuenta</h1>
+  <p>Hola, <strong>{{ session.get('usuario_nombre') }}</strong>.</p>
+  <p>Desde aquí puedes seguir comprando o revisar tu carrito.</p>
+  <a class="btn-primary" href="{{ url_for('productos_publicos') }}">Ver productos</a>
+  <a class="btn-secondary" href="{{ url_for('carrito') }}">Ver carrito</a>
+</section>
+{% endblock %}
